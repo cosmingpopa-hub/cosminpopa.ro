@@ -21,10 +21,21 @@ const t = {
         title: "De ce contez\u0103 educa\u021bia",
         text: "Fiecare genera\u021bie de studen\u021bi vine cu \u00eentreb\u0103ri mai bune dec\u00e2t cea anterioar\u0103. Rolul meu nu e doar s\u0103 le predau anatomie \u2014 ci s\u0103 le dau instrumentele cu care s\u0103 g\u00e2ndeasc\u0103 singuri, s\u0103 pun\u0103 sub semnul \u00eentreb\u0103rii ce li se pare evident \u0219i s\u0103 nu se opreasc\u0103 la primul r\u0103spuns. Educa\u021bia nu e despre ce \u0219tii \u2014 e despre cum g\u00e2nde\u0219ti. \u0218i cea mai mare responsabilitate pe care o am ca profesor e s\u0103 formez oameni care g\u00e2ndesc critic, nu care repet\u0103 mecanic. Dac\u0103 un student pleac\u0103 din sala mea cu o \u00eentrebare \u00een plus fa\u021b\u0103 de c\u00e2te avea c\u00e2nd a intrat, am f\u0103cut ceva bine.",
       },
+      experience: {
+        titleAcademic: "Experien\u021b\u0103 academic\u0103",
+        titleProfessional: "Experien\u021b\u0103 profesional\u0103",
+        academic: [
+          { role: "\u0218ef de Lucr\u0103ri \u2014 Anatomie \u0219i Embriologie", place: "UMF \u201EGr. T. Popa\u201D Ia\u0219i", year: "2024 \u2013 prezent" },
+          { role: "Asistent Universitar \u2014 Anatomie \u0219i Embriologie", place: "UMF \u201EGr. T. Popa\u201D Ia\u0219i", year: "2015 \u2013 2024" },
+        ],
+        professional: [
+          { role: "Medic Dentist \u0219i Administrator", place: "CopouDent SRL, Ia\u0219i", year: "2013 \u2013 2025" },
+        ],
+      },
       education: {
         title: "Educa\u021bie",
         items: [
-          { degree: "Doctorat \u2014 Medicin\u0103 Dentar\u0103", school: "UMF \u201EGr. T. Popa\u201D Ia\u0219i", year: "2019 \u2013 prezent" },
+          { degree: "Doctorat \u2014 Medicin\u0103 Dentar\u0103", school: "UMF \u201EGr. T. Popa\u201D Ia\u0219i", year: "2019" },
           { degree: "Masterat \u2014 Medicin\u0103 Dentar\u0103", school: "UMF \u201EGr. T. Popa\u201D Ia\u0219i", year: "2017" },
           { degree: "Licen\u021b\u0103 \u2014 Medicin\u0103 Dentar\u0103", school: "UMF \u201EGr. T. Popa\u201D Ia\u0219i", year: "2013" },
           { degree: "Licen\u021b\u0103 \u2014 Istorie", school: "Universitatea \u201EAl. I. Cuza\u201D Ia\u0219i", year: "2013" },
@@ -105,6 +116,31 @@ const t = {
           ],
           tag: "Educa\u021bie",
         },
+        {
+          title: "Medicina ca voca\u021bie \u2014 de ce nu e doar o profesie",
+          date: "9 aprilie 2026", tag: "Educa\u021bie",
+          summary: "Exist\u0103 o diferen\u021b\u0103 enorm\u0103 \u00eentre a alege medicina ca meserie \u0219i a o sim\u021bi ca pe o chemare. Despre ce \u00eenseamn\u0103 s\u0103 fii medic dincolo de diplom\u0103.",
+          content: [
+            "William Osler spunea c\u0103 medicina este \u201Eo voca\u021bie, nu o afacere; o chemare \u00een care inima ta va fi pus\u0103 la \u00eencercare \u00een egal\u0103 m\u0103sur\u0103 cu mintea\u201D. Dup\u0103 11 ani de predat anatomie, am \u00een\u021beles c\u0103 nu exagera.",
+            "V\u0103d \u00een fiecare an sute de studen\u021bi. Unii au ales medicina pentru prestigiu, al\u021bii pentru p\u0103rin\u021bi, al\u021bii pentru c\u0103 nu \u0219tiau ce altceva s\u0103 fac\u0103. \u0218i e ok \u2014 nu trebuie s\u0103 ai totul clar la 18 ani. Dar \u00een anul doi sau trei, ceva se schimb\u0103.",
+            "Voca\u021bia nu \u00eenseamn\u0103 c\u0103 nu te obose\u0219ti, c\u0103 nu te frustrezi, c\u0103 nu vrei s\u0103 renun\u021bi uneori. \u00censeamn\u0103 c\u0103, dup\u0103 toate astea, te \u00eentorci. \u00censeamn\u0103 c\u0103 nu po\u021bi s\u0103 nu te \u00eentorci.",
+            "Am v\u0103zut studen\u021bi care au picat \u00een prima sesiune \u0219i au devenit medici extraordinari. Am v\u0103zut studen\u021bi cu note perfecte care au abandonat dup\u0103 reziden\u021biat. Diferen\u021ba nu a fost inteligen\u021ba. A fost motivul pentru care au ales s\u0103 fie acolo.",
+            "Dac\u0103 cite\u0219ti asta \u0219i te \u00eentrebi dac\u0103 medicina e pentru tine \u2014 \u00eentrebarea \u00een sine e un semn bun. Medicina nu e u\u0219oar\u0103. Dar pentru cine o simte ca pe o chemare, e imposibil de renun\u021bat.",
+          ],
+        },
+        {
+          title: "Anatomia nu e doar pentru sala de disec\u021bie \u2014 oportunit\u0103\u021bi interdisciplinare",
+          date: "9 aprilie 2026", tag: "Anatomy Notes",
+          summary: "Anatomia se intersecteaz\u0103 cu imagistica, inteligen\u021ba artificial\u0103, arheologia \u0219i educa\u021bia digital\u0103. Despre cum o disciplin\u0103 veche de secole deschide u\u0219i noi.",
+          content: [
+            "C\u00e2nd spui \u201Eanatomie\u201D, majoritatea oamenilor se g\u00e2ndesc la sala de disec\u021bie. \u0218i da, acolo \u00eencepe totul. Dar acolo nu se termin\u0103.",
+            "Anatomia modern\u0103 se intersecteaz\u0103 cu domenii pe care genera\u021bia anterioar\u0103 de profesori nici nu le-ar fi imaginat. Imagistica medical\u0103 (CT, MRI, CBCT) a transformat anatomia descriptiv\u0103 \u00eentr-o anatomie func\u021bional\u0103 \u0219i clinic\u0103, unde variantele anatomice nu sunt curiozit\u0103\u021bi \u2014 sunt informa\u021bii critice pentru chirurg.",
+            "Inteligen\u021ba artificial\u0103 \u0219i vizualizarea 3D au deschis o alt\u0103 frontier\u0103: atlase interactive, simul\u0103ri de disec\u021bie virtual\u0103, modele printate 3D ale structurilor anatomice.",
+            "Personal, am o a doua forma\u021bie \u00een istorie \u0219i arheologie. Asta m-a dus spre bioarheologie \u2014 studiul resturilor osteologice umane din contexte arheologice folosind metode anatomice moderne. E un domeniu fascinant unde medicina se \u00eent\u00e2lne\u0219te cu istoria.",
+            "Iar educa\u021bia digital\u0103 e poate cea mai urgent\u0103 intersec\u021bie. Am construit NASCORA pentru c\u0103 informa\u021bia despre teratogeni trebuia s\u0103 ajung\u0103 la oricine. Am construit Medical Research Toolkit pentru c\u0103 studen\u021bii mei aveau nevoie de un punct de plecare pentru cercetare.",
+            "Dac\u0103 e\u0219ti student \u0219i crezi c\u0103 anatomia e o materie de trecut \u00een anul I \u2014 g\u00e2nde\u0219te-te din nou. E o platform\u0103 de lansare. Depinde doar de tine c\u00e2t de departe vrei s\u0103 ajungi cu ea.",
+          ],
+        },
       ],
     },
     contact: {
@@ -132,10 +168,21 @@ const t = {
         title: "Why education matters",
         text: "Every generation of students comes with better questions than the last. My role is not just to teach them anatomy \u2014 it is to give them the tools to think for themselves, to question what seems obvious, and to never stop at the first answer. Education is not about what you know \u2014 it is about how you think. And my greatest responsibility as a teacher is to shape people who think critically, not who repeat mechanically. If a student leaves my classroom with one more question than they had when they walked in, I have done something right.",
       },
+      experience: {
+        titleAcademic: "Academic Experience",
+        titleProfessional: "Professional Experience",
+        academic: [
+          { role: "Senior Lecturer \u2014 Anatomy & Embryology", place: "UMF \u201EGr. T. Popa\u201D Ia\u0219i", year: "2024 \u2013 present" },
+          { role: "Teaching Assistant \u2014 Anatomy & Embryology", place: "UMF \u201EGr. T. Popa\u201D Ia\u0219i", year: "2015 \u2013 2024" },
+        ],
+        professional: [
+          { role: "Dental Practitioner & Administrator", place: "CopouDent SRL, Ia\u0219i", year: "2013 \u2013 2025" },
+        ],
+      },
       education: {
         title: "Education",
         items: [
-          { degree: "PhD \u2014 Dental Medicine", school: "UMF \u201EGr. T. Popa\u201D Ia\u0219i", year: "2019 \u2013 present" },
+          { degree: "PhD \u2014 Dental Medicine", school: "UMF \u201EGr. T. Popa\u201D Ia\u0219i", year: "2019" },
           { degree: "MSc \u2014 Dental Medicine", school: "UMF \u201EGr. T. Popa\u201D Ia\u0219i", year: "2017" },
           { degree: "DMD \u2014 Dental Medicine", school: "UMF \u201EGr. T. Popa\u201D Ia\u0219i", year: "2013" },
           { degree: "BA \u2014 History", school: "\u201EAl. I. Cuza\u201D University Ia\u0219i", year: "2013" },
@@ -215,6 +262,31 @@ const t = {
             "My mission is simple: make anatomy relevant, accessible, and impossible to ignore. If you are a student reading this \u2014 welcome. You are in the right place.",
           ],
           tag: "Education",
+        },
+        {
+          title: "Medicine as a vocation \u2014 why it is more than a profession",
+          date: "April 9, 2026", tag: "Education",
+          summary: "There is an enormous difference between choosing medicine as a career and feeling it as a calling. On what it means to be a doctor beyond the diploma.",
+          content: [
+            "William Osler said that medicine is \u201Ca calling, not a business; a calling in which your heart will be exercised equally with your head.\u201D After 11 years of teaching anatomy, I understand he was not exaggerating.",
+            "Every year I see hundreds of students. Some chose medicine for prestige, others for their parents, others because they did not know what else to do. And that is fine \u2014 you do not need to have everything figured out at 18. But in year two or three, something changes.",
+            "Vocation does not mean you never get tired, never get frustrated, never want to quit. It means that after all of that, you come back. It means you cannot not come back.",
+            "I have seen students who failed their first exam session and became extraordinary doctors. I have seen students with perfect grades who dropped out after residency. The difference was not intelligence. It was the reason they chose to be there.",
+            "If you are reading this and wondering whether medicine is for you \u2014 the question itself is a good sign. Medicine is not easy. But for those who feel it as a calling, it is impossible to give up.",
+          ],
+        },
+        {
+          title: "Anatomy is not just for the dissection room \u2014 interdisciplinary opportunities",
+          date: "April 9, 2026", tag: "Anatomy Notes",
+          summary: "Anatomy intersects with imaging, artificial intelligence, archaeology, and digital education. On how a centuries-old discipline opens new doors.",
+          content: [
+            "When you say \u201Canatomy,\u201D most people think of the dissection room. And yes, that is where it all begins. But that is not where it ends.",
+            "Modern anatomy intersects with fields that the previous generation of professors could not have imagined. Medical imaging (CT, MRI, CBCT) has transformed descriptive anatomy into functional and clinical anatomy, where anatomical variants are not curiosities \u2014 they are critical information for the surgeon.",
+            "Artificial intelligence and 3D visualization have opened another frontier: interactive atlases, virtual dissection simulations, 3D-printed models of anatomical structures.",
+            "Personally, I have a second academic formation in history and archaeology. This led me to bioarchaeology \u2014 the study of human osteological remains from archaeological contexts using modern anatomical methods. It is a fascinating field where medicine meets history.",
+            "And digital education is perhaps the most urgent intersection. I built NASCORA because teratogen information needed to reach everyone. I built Medical Research Toolkit because my students needed a starting point for research.",
+            "If you are a student and you think anatomy is just a subject to pass in year one \u2014 think again. It is a launchpad. How far you go with it depends entirely on you.",
+          ],
         },
       ],
     },
@@ -332,6 +404,28 @@ export function AcademicSite() {
           <h3 style={{ ...S.head, fontSize: "1.1rem", fontWeight: 700, color: "var(--acc)", marginBottom: "0.5rem" }}>{c.about.mission.title}</h3>
           <p style={{ fontSize: "0.95rem", color: "var(--fg-sec)", lineHeight: 1.8, fontStyle: "italic" }}>{c.about.mission.text}</p>
         </div>
+
+        <h3 style={S.subh}>{c.about.experience.titleAcademic}</h3>
+        {c.about.experience.academic.map((exp, i) => (
+          <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", padding: "0.4rem 0", borderBottom: i < c.about.experience.academic.length - 1 ? "1px solid var(--bdr)" : "none", flexWrap: "wrap", gap: "0.25rem" }}>
+            <div>
+              <span style={{ fontWeight: 500, color: "var(--fg)", fontSize: "0.95rem" }}>{exp.role}</span>
+              <span style={{ color: "var(--fg-ter)", fontSize: "0.9rem" }}>{" \u2014 "}{exp.place}</span>
+            </div>
+            <span style={{ ...S.mono, fontSize: "0.8rem", color: "var(--fg-ter)", whiteSpace: "nowrap" }}>{exp.year}</span>
+          </div>
+        ))}
+
+        <h3 style={S.subh}>{c.about.experience.titleProfessional}</h3>
+        {c.about.experience.professional.map((exp, i) => (
+          <div key={i} style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", padding: "0.4rem 0", flexWrap: "wrap", gap: "0.25rem" }}>
+            <div>
+              <span style={{ fontWeight: 500, color: "var(--fg)", fontSize: "0.95rem" }}>{exp.role}</span>
+              <span style={{ color: "var(--fg-ter)", fontSize: "0.9rem" }}>{" \u2014 "}{exp.place}</span>
+            </div>
+            <span style={{ ...S.mono, fontSize: "0.8rem", color: "var(--fg-ter)", whiteSpace: "nowrap" }}>{exp.year}</span>
+          </div>
+        ))}
 
         <h3 style={S.subh}>{c.about.education.title}</h3>
         {c.about.education.items.map((ed, i) => (
