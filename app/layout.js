@@ -29,6 +29,14 @@ export const metadata = {
     alternateLocale: 'en_US',
     url: 'https://cosminpopa.ro',
     siteName: 'Cosmin-Gabriel Popa',
+    images: [
+      {
+        url: 'https://cosminpopa.ro/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Cosmin-Gabriel Popa — Senior Lecturer — Anatomy & Embryology — UMF Iași',
+      },
+    ],
     title: 'Cosmin-Gabriel Popa \u2014 Anatomy & Embryology',
     description: 'Senior Lecturer at UMF Gr. T. Popa Ia\u0219i. Applied anatomy, digital medical education, NASCORA platform.',
   },
@@ -36,6 +44,7 @@ export const metadata = {
     card: 'summary',
     title: 'Cosmin-Gabriel Popa \u2014 Anatomy & Embryology',
     description: 'Senior Lecturer at UMF Gr. T. Popa Ia\u0219i. Applied anatomy, digital medical education.',
+    images: ['https://cosminpopa.ro/og-image.png'],
   },
   robots: {
     index: true,
