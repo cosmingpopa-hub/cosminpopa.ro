@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Medical Research Toolkit — by Dr. Cosmin G. Popa</title>
+<meta name="description" content="Unified search across PubMed, Google Scholar, Semantic Scholar and Consensus. Step-by-step research guide for medical students.">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'DM Sans',sans-serif;background:#0f1117;color:#e0e0e0;line-height:1.6;-webkit-font-smoothing:antialiased}
+.top-bar{background:linear-gradient(135deg,#1a1a2e 0%,#16213e 100%);padding:20px 16px;text-align:center;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,0.06)}
+.top-bar h1{font-size:18px;font-weight:700;color:#fff;letter-spacing:-0.3px}
+.top-bar .sub{font-size:12px;color:rgba(255,255,255,0.4);margin-top:4px;letter-spacing:0.5px}
+.lang-toggle{position:absolute;top:16px;right:16px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;color:#64b5f6;cursor:pointer;font-family:'JetBrains Mono',monospace;transition:all 0.2s}
+.lang-toggle:hover{background:rgba(100,181,246,0.15);border-color:#64b5f6}
+.container{max-width:480px;margin:0 auto;padding:16px}
+.search-section{background:linear-gradient(135deg,#1e3a5f,#1a1a2e);border-radius:16px;padding:20px;margin-bottom:20px;border:1px solid rgba(255,255,255,0.08)}
+.search-section h2{font-size:15px;font-weight:700;color:#64b5f6;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.search-input{width:100%;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:12px 14px;color:#fff;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border 0.2s}
+.search-input:focus{border-color:#64b5f6}
+.search-input::placeholder{color:rgba(255,255,255,0.3)}
+.search-btns{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.search-btn{flex:1;min-width:calc(50% - 4px);padding:10px 8px;border-radius:10px;border:none;font-size:12px;font-weight:700;cursor:pointer;text-decoration:none;text-align:center;color:#fff;transition:transform 0.15s,opacity 0.15s;display:flex;align-items:center;justify-content:center;gap:4px}
+.search-btn:active{transform:scale(0.97);opacity:0.9}
+.btn-pubmed{background:linear-gradient(135deg,#1565c0,#0d47a1)}
+.btn-scholar{background:linear-gradient(135deg,#2e7d32,#1b5e20)}
+.btn-semantic{background:linear-gradient(135deg,#6a1b9a,#4a148c)}
+.btn-consensus{background:linear-gradient(135deg,#e65100,#bf360c)}
+.quick-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tag{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:20px;padding:5px 12px;font-size:11px;color:rgba(255,255,255,0.5);cursor:pointer;transition:all 0.2s}
+.tag:hover,.tag:active{background:rgba(100,181,246,0.15);border-color:#64b5f6;color:#64b5f6}
+.section-card{background:#1a1d27;border-radius:16px;padding:20px;margin-bottom:16px;border:1px solid rgba(255,255,255,0.06)}
+.section-card h2{font-size:15px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.tool-item{display:flex;gap:12px;padding:12px;background:rgba(255,255,255,0.03);border-radius:12px;margin-bottom:8px;border:1px solid rgba(255,255,255,0.05);text-decoration:none;color:inherit;transition:background 0.2s}
+.tool-item:hover,.tool-item:active{background:rgba(255,255,255,0.06)}
+.tool-icon{font-size:28px;width:44px;height:44px;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.05);border-radius:10px;flex-shrink:0}
+.tool-info{flex:1}
+.tool-name{font-size:14px;font-weight:700;color:#fff}
+.tool-desc{font-size:12px;color:rgba(255,255,255,0.45);margin-top:2px;line-height:1.5}
+.tool-badge{display:inline-block;background:rgba(100,181,246,0.15);color:#64b5f6;padding:1px 8px;border-radius:10px;font-size:10px;font-weight:700;margin-top:4px}
+.step{display:flex;gap:12px;margin-bottom:16px}
+.step-num{width:32px;height:32px;background:linear-gradient(135deg,#64b5f6,#1565c0);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0}
+.step-content{flex:1}
+.step-title{font-size:14px;font-weight:700;color:#fff}
+.step-text{font-size:12px;color:rgba(255,255,255,0.5);margin-top:2px;line-height:1.6}
+.prompt-box{background:rgba(100,181,246,0.08);border:1px solid rgba(100,181,246,0.2);border-radius:10px;padding:12px;margin:8px 0;font-family:'JetBrains Mono',monospace;font-size:12px;color:#90caf9;line-height:1.6;position:relative;cursor:pointer}
+.prompt-box .copy-hint{position:absolute;top:8px;right:8px;font-size:10px;color:rgba(255,255,255,0.25);font-family:'DM Sans',sans-serif}
+.warning{background:rgba(255,152,0,0.08);border:1px solid rgba(255,152,0,0.2);border-radius:10px;padding:12px;margin:10px 0}
+.warning p{font-size:12px;color:#ffb74d;line-height:1.6}
+.tab-bar{display:flex;gap:0;background:#1a1d27;border-radius:12px;margin-bottom:16px;overflow:hidden;border:1px solid rgba(255,255,255,0.06)}
+.tab{flex:1;padding:10px 8px;text-align:center;font-size:12px;font-weight:700;color:rgba(255,255,255,0.35);cursor:pointer;transition:all 0.2s;border:none;background:none}
+.tab.active{background:rgba(100,181,246,0.15);color:#64b5f6}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.footer{text-align:center;padding:24px 16px;font-size:11px;color:rgba(255,255,255,0.2)}
+.footer a{color:rgba(255,255,255,0.3);text-decoration:none}
+.back-link{display:inline-block;margin-bottom:12px;font-size:12px;color:rgba(255,255,255,0.3);text-decoration:none;font-family:'JetBrains Mono',monospace}
+.back-link:hover{color:#64b5f6}
+</style>
+</head>
+<body>
+
+<div class="top-bar">
+  <h1>&#x1F52C; Medical Research Toolkit</h1>
+  <div class="sub" id="subtitle">C&#x103;ut&#x103;. &#x00CE;n&#x21B;elege. Public&#x103;. &#x2014; by Dr. Cosmin G. Popa</div>
+  <button class="lang-toggle" onclick="toggleLang()" id="langBtn">EN</button>
+</div>
+
+<div class="container">
+
+  <a href="/" class="back-link" id="backLink">&#x2190; cosminpopa.ro</a>
+
+  <!-- TABS -->
+  <div class="tab-bar" id="tabBar">
+    <button class="tab active" onclick="showTab('search')" data-ro="&#x1F50D; Caut&#x103;" data-en="&#x1F50D; Search">&#x1F50D; Caut&#x103;</button>
+    <button class="tab" onclick="showTab('tools')" data-ro="&#x1F916; AI Tools" data-en="&#x1F916; AI Tools">&#x1F916; AI Tools</button>
+    <button class="tab" onclick="showTab('anatomy')" data-ro="&#x1F9B4; Anatomie" data-en="&#x1F9B4; Anatomy">&#x1F9B4; Anatomie</button>
+    <button class="tab" onclick="showTab('guide')" data-ro="&#x1F4CB; Ghid" data-en="&#x1F4CB; Guide">&#x1F4CB; Ghid</button>
+  </div>
+
+  <!-- TAB: SEARCH -->
+  <div class="tab-content active" id="tab-search">
+    <div class="search-section">
+      <h2 data-ro="&#x1F50D; Caut&#x103; articole &#x219;tiin&#x21B;ifice" data-en="&#x1F50D; Search scientific articles">&#x1F50D; Caut&#x103; articole &#x219;tiin&#x21B;ifice</h2>
+      <input type="text" class="search-input" id="searchInput" data-ro="Scrie orice tem&#x103; medical&#x103;..." data-en="Type any medical topic..." placeholder="Scrie orice tem&#x103; medical&#x103;...">
+      <div class="search-btns">
+        <a class="search-btn btn-pubmed" onclick="searchEngine('pubmed')">&#x1F3E5; PubMed</a>
+        <a class="search-btn btn-scholar" onclick="searchEngine('scholar')">&#x1F4DA; Scholar</a>
+        <a class="search-btn btn-semantic" onclick="searchEngine('semantic')">&#x1F9E0; Semantic</a>
+        <a class="search-btn btn-consensus" onclick="searchEngine('consensus')">&#x26A1; Consensus</a>
+      </div>
+      <div class="quick-tags" style="margin-top:14px">
+        <span class="tag" onclick="setSearch('anatomical variation CT')" data-ro="Variante anatomice" data-en="Anatomical variants">Variante anatomice</span>
+        <span class="tag" onclick="setSearch('surgical anatomy laparoscopic')" data-ro="Chirurgie" data-en="Surgery">Chirurgie</span>
+        <span class="tag" onclick="setSearch('clinical anatomy CBCT morphometry')" data-ro="CBCT Morfometrie" data-en="CBCT Morphometry">CBCT Morfometrie</span>
+        <span class="tag" onclick="setSearch('congenital anomaly embryology')" data-ro="Embriologie" data-en="Embryology">Embriologie</span>
+        <span class="tag" onclick="setSearch('paleopathology skeletal remains')" data-ro="Paleopatologie" data-en="Paleopathology">Paleopatologie</span>
+        <span class="tag" onclick="setSearch('anatomy education 3D printing')" data-ro="Educa&#x21B;ie 3D" data-en="3D Education">Educa&#x21B;ie 3D</span>
+        <span class="tag" onclick="setSearch('nerve variation clinical significance')" data-ro="Variante nervi" data-en="Nerve variants">Variante nervi</span>
+        <span class="tag" onclick="setSearch('vascular anatomy imaging')" data-ro="Anatomie vascular&#x103;" data-en="Vascular anatomy">Anatomie vascular&#x103;</span>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <h2 style="color:#64b5f6" data-ro="&#x2699;&#xFE0F; Filtre rapide PubMed" data-en="&#x2699;&#xFE0F; Quick PubMed Filters">&#x2699;&#xFE0F; Filtre rapide PubMed</h2>
+      <p style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:10px" data-ro="Adaug&#x103; filtre la c&#x103;utarea ta:" data-en="Add filters to your search:">Adaug&#x103; filtre la c&#x103;utarea ta:</p>
+      <div class="quick-tags">
+        <span class="tag" onclick="addFilter(' AND free full text[filter]')">Free Full Text</span>
+        <span class="tag" onclick="addFilter(' AND review[pt]')" data-ro="Doar Review-uri" data-en="Reviews only">Doar Review-uri</span>
+        <span class="tag" onclick="addFilter(' AND (&quot;last 5 years&quot;[dp])')" data-ro="Ultimii 5 ani" data-en="Last 5 years">Ultimii 5 ani</span>
+        <span class="tag" onclick="addFilter(' AND meta-analysis[pt]')" data-ro="Meta-analize" data-en="Meta-analyses">Meta-analize</span>
+        <span class="tag" onclick="addFilter(' AND case reports[pt]')">Case Reports</span>
+        <span class="tag" onclick="addFilter(' AND clinical trial[pt]')">Clinical Trials</span>
+      </div>
+    </div>
+
+    <div class="section-card">
+      <h2 style="color:#81c784" data-ro="&#x1F4D6; MeSH Terms &#x2014; Cum cau&#x21B;i corect pe PubMed" data-en="&#x1F4D6; MeSH Terms &#x2014; How to search PubMed correctly">&#x1F4D6; MeSH Terms &#x2014; Cum cau&#x21B;i corect pe PubMed</h2>
+      <div class="step">
+        <div class="step-num">!</div>
+        <div class="step-content">
+          <div class="step-title" data-ro="Nu c&#x103;uta &quot;kidney problems&quot; &#x2014; caut&#x103; cu MeSH" data-en="Don't search &quot;kidney problems&quot; &#x2014; use MeSH terms">Nu c&#x103;uta "kidney problems" &#x2014; caut&#x103; cu MeSH</div>
+          <div class="step-text" data-ro="MeSH (Medical Subject Headings) sunt termenii standardiza&#x21B;i ai PubMed. Folosirea lor &#x00EE;&#x21B;i d&#x103; rezultate precise &#x00EE;n loc de mii de articole irelevante." data-en="MeSH (Medical Subject Headings) are PubMed's standardized terms. Using them gives you precise results instead of thousands of irrelevant articles.">MeSH (Medical Subject Headings) sunt termenii standardiza&#x21B;i ai PubMed. Folosirea lor &#x00EE;&#x21B;i d&#x103; rezultate precise &#x00EE;n loc de mii de articole irelevante.</div>
+        </div>
+      </div>
+      <div class="prompt-box">
+        <span class="copy-hint">tap = copy</span>
+        <span data-ro='Cere AI-ului: "Genereaz&#x103;-mi termeni MeSH pentru o c&#x103;utare PubMed pe tema [SUBIECTUL T&#x102;U]. Construie&#x219;te un search string cu AND/OR."' data-en='Ask AI: "Generate MeSH terms for a PubMed search on [YOUR TOPIC]. Build an optimized search string with AND/OR."'>Cere AI-ului: "Genereaz&#x103;-mi termeni MeSH pentru o c&#x103;utare PubMed pe tema [SUBIECTUL T&#x102;U]. Construie&#x219;te un search string cu AND/OR."</span>
+      </div>
+      <a class="tool-item" href="https://meshb.nlm.nih.gov/search" target="_blank">
+        <div class="tool-icon">&#x1F3F7;&#xFE0F;</div>
+        <div class="tool-info">
+          <div class="tool-name">MeSH Browser</div>
+          <div class="tool-desc" data-ro="Caut&#x103; termenii MeSH oficiali direct pe site-ul NLM" data-en="Search official MeSH terms directly on the NLM website">Caut&#x103; termenii MeSH oficiali direct pe site-ul NLM</div>
+          <span class="tool-badge" data-ro="GRATUIT" data-en="FREE">GRATUIT</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- TAB: AI TOOLS -->
+  <div class="tab-content" id="tab-tools">
+    <div class="section-card">
+      <h2 style="color:#bb86fc" data-ro="&#x1F916; AI Tools pentru Research Medical" data-en="&#x1F916; AI Tools for Medical Research">&#x1F916; AI Tools pentru Research Medical</h2>
+
+      <a class="tool-item" href="https://consensus.app" target="_blank">
+        <div class="tool-icon">&#x26A1;</div>
+        <div class="tool-info">
+          <div class="tool-name">Consensus</div>
+          <div class="tool-desc" data-ro="&#x00CE;ntrebi &#x00EE;n limbaj natural, prime&#x219;ti r&#x103;spuns bazat pe papers cu procent de acord/dezacord." data-en="Ask in natural language, get answers based on papers with agreement/disagreement percentages.">&#x00CE;ntrebi &#x00EE;n limbaj natural, prime&#x219;ti r&#x103;spuns bazat pe papers cu procent de acord/dezacord.</div>
+          <span class="tool-badge" data-ro="GRATUIT &#x2022; R&#x103;spunsuri rapide" data-en="FREE &#x2022; Quick answers">GRATUIT &#x2022; R&#x103;spunsuri rapide</span>
+        </div>
+      </a>
+
+      <a class="tool-item" href="https://elicit.com" target="_blank">
+        <div class="tool-icon">&#x1F4CA;</div>
+        <div class="tool-info">
+          <div class="tool-name">Elicit</div>
+          <div class="tool-desc" data-ro="Extrage date din articole automat &#x00EE;ntr-un tabel: lot, metod&#x103;, rezultate. Ideal pentru literature review." data-en="Automatically extracts data from articles into a table: sample, method, results. Ideal for literature review.">Extrage date din articole automat &#x00EE;ntr-un tabel: lot, metod&#x103;, rezultate. Ideal pentru literature review.</div>
+          <span class="tool-badge" data-ro="GRATUIT (limitat) &#x2022; Literature review" data-en="FREE (limited) &#x2022; Literature review">GRATUIT (limitat) &#x2022; Literature review</span>
+        </div>
+      </a>
+
+      <a class="tool-item" href="https://www.semanticscholar.org" target="_blank">
+        <div class="tool-icon">&#x1F9E0;</div>
+        <div class="tool-info">
+          <div class="tool-name">Semantic Scholar</div>
+          <div class="tool-desc" data-ro="200M+ articole, rezumate AI (TLDR), grafic de cit&#x103;ri. Arat&#x103; care papers sunt cele mai influente." data-en="200M+ articles, AI summaries (TLDR), citation graphs. Shows which papers are most influential.">200M+ articole, rezumate AI (TLDR), grafic de cit&#x103;ri. Arat&#x103; care papers sunt cele mai influente.</div>
+          <span class="tool-badge" data-ro="GRATUIT &#x2022; Descoperire articole" data-en="FREE &#x2022; Article discovery">GRATUIT &#x2022; Descoperire articole</span>
+        </div>
+      </a>
+
+      <a class="tool-item" href="https://scite.ai" target="_blank">
+        <div class="tool-icon">&#x1F50E;</div>
+        <div class="tool-info">
+          <div class="tool-name">scite.ai</div>
+          <div class="tool-desc" data-ro="Arat&#x103; CUM a fost citat un articol: sus&#x21B;inut, contrazis, sau doar men&#x21B;ionat." data-en="Shows HOW an article was cited: supported, contradicted, or just mentioned.">Arat&#x103; CUM a fost citat un articol: sus&#x21B;inut, contrazis, sau doar men&#x21B;ionat.</div>
+          <span class="tool-badge" data-ro="FREEMIUM &#x2022; Verificare surse" data-en="FREEMIUM &#x2022; Source verification">FREEMIUM &#x2022; Verificare surse</span>
+        </div>
+      </a>
+
+      <a class="tool-item" href="https://claude.ai" target="_blank">
+        <div class="tool-icon">&#x1F4AC;</div>
+        <div class="tool-info">
+          <div class="tool-name">Claude (Anthropic)</div>
+          <div class="tool-desc" data-ro="Rezum&#x103; abstracte, explic&#x103; metodologii, genereaz&#x103; MeSH terms, traduce, structureaz&#x103; review-uri." data-en="Summarizes abstracts, explains methodologies, generates MeSH terms, translates, structures reviews.">Rezum&#x103; abstracte, explic&#x103; metodologii, genereaz&#x103; MeSH terms, traduce, structureaz&#x103; review-uri.</div>
+          <span class="tool-badge" data-ro="GRATUIT (free tier) &#x2022; &#x00CE;n&#x21B;elegere + Redactare" data-en="FREE (free tier) &#x2022; Understanding + Writing">GRATUIT (free tier) &#x2022; &#x00CE;n&#x21B;elegere + Redactare</span>
+        </div>
+      </a>
+
+      <a class="tool-item" href="https://www.perplexity.ai" target="_blank">
+        <div class="tool-icon">&#x1F310;</div>
+        <div class="tool-info">
+          <div class="tool-name">Perplexity AI</div>
+          <div class="tool-desc" data-ro="Search AI cu cit&#x103;ri inline. &#x00CE;ntrebi orice medical, prime&#x219;ti r&#x103;spuns cu surse verificabile." data-en="AI search with inline citations. Ask anything medical, get answers with verifiable sources.">Search AI cu cit&#x103;ri inline. &#x00CE;ntrebi orice medical, prime&#x219;ti r&#x103;spuns cu surse verificabile.</div>
+          <span class="tool-badge" data-ro="GRATUIT &#x2022; Quick research" data-en="FREE &#x2022; Quick research">GRATUIT &#x2022; Quick research</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="section-card">
+      <h2 style="color:#ef5350" data-ro="&#x1F3AF; Prompt-uri universale &#x2014; copiaz&#x103; &#x219;i folose&#x219;te" data-en="&#x1F3AF; Universal prompts &#x2014; copy and use">&#x1F3AF; Prompt-uri universale &#x2014; copiaz&#x103; &#x219;i folose&#x219;te</h2>
+      <p style="font-size:12px;color:rgba(255,255,255,0.4);margin-bottom:12px" data-ro="Func&#x21B;ioneaz&#x103; cu Claude, ChatGPT, sau Perplexity. Tap = copiaz&#x103;." data-en="Works with Claude, ChatGPT, or Perplexity. Tap = copy.">Func&#x21B;ioneaz&#x103; cu Claude, ChatGPT, sau Perplexity. Tap = copiaz&#x103;.</p>
+
+      <div class="prompt-box"><span class="copy-hint" data-ro="rezumat" data-en="summary">rezumat</span>
+        <span data-ro='"Rezum&#x103; acest abstract &#x00EE;n 3 propozi&#x21B;ii simple. Apoi spune-mi: care e relevan&#x21B;a clinic&#x103; principal&#x103; &#x219;i ce limitare major&#x103; are studiul?"' data-en='"Summarize this abstract in 3 simple sentences. Then tell me: what is the main clinical relevance and what major limitation does the study have?"'>"Rezum&#x103; acest abstract &#x00EE;n 3 propozi&#x21B;ii simple. Apoi spune-mi: care e relevan&#x21B;a clinic&#x103; principal&#x103; &#x219;i ce limitare major&#x103; are studiul?"</span>
+      </div>
+
+      <div class="prompt-box"><span class="copy-hint">MeSH</span>
+        <span data-ro='"Genereaz&#x103;-mi termeni MeSH pentru o c&#x103;utare PubMed pe tema [SUBIECTUL T&#x102;U]. Construie&#x219;te un search string optimizat cu AND/OR/NOT."' data-en='"Generate MeSH terms for a PubMed search on [YOUR TOPIC]. Build an optimized search string with AND/OR/NOT."'>"Genereaz&#x103;-mi termeni MeSH pentru o c&#x103;utare PubMed pe tema [SUBIECTUL T&#x102;U]. Construie&#x219;te un search string optimizat cu AND/OR/NOT."</span>
+      </div>
+
+      <div class="prompt-box"><span class="copy-hint">review</span>
+        <span data-ro='"Sunt student la medicin&#x103; &#x219;i vreau s&#x103; scriu un mini-review pe [SUBIECTUL T&#x102;U]. D&#x103;-mi o structur&#x103; de 5 sec&#x21B;iuni &#x219;i sugereaz&#x103;-mi 10 articole cheie pe care s&#x103; le caut pe PubMed."' data-en='"I am a medical student and I want to write a mini-review on [YOUR TOPIC]. Give me a 5-section structure and suggest 10 key articles to search on PubMed."'>"Sunt student la medicin&#x103; &#x219;i vreau s&#x103; scriu un mini-review pe [SUBIECTUL T&#x102;U]. D&#x103;-mi o structur&#x103; de 5 sec&#x21B;iuni &#x219;i sugereaz&#x103;-mi 10 articole cheie pe care s&#x103; le caut pe PubMed."</span>
+      </div>
+
+      <div class="prompt-box"><span class="copy-hint" data-ro="compara&#x21B;ie" data-en="comparison">compara&#x21B;ie</span>
+        <span data-ro='"Compar&#x103; aceste dou&#x103; abord&#x103;ri terapeutice: [A] vs [B]. Ce spune literatura recent&#x103;? Care sunt avantajele &#x219;i dezavantajele fiec&#x103;reia?"' data-en='"Compare these two therapeutic approaches: [A] vs [B]. What does the recent literature say? What are the advantages and disadvantages of each?"'>"Compar&#x103; aceste dou&#x103; abord&#x103;ri terapeutice: [A] vs [B]. Ce spune literatura recent&#x103;? Care sunt avantajele &#x219;i dezavantajele fiec&#x103;reia?"</span>
+      </div>
+
+      <div class="prompt-box"><span class="copy-hint" data-ro="patologie" data-en="pathology">patologie</span>
+        <span data-ro='"Pornind de la anatomia normal&#x103; a [STRUCTURA], explic&#x103;-mi bazele anatomice ale [PATOLOGIA]. Ce variante anatomice pot complica managementul chirurgical?"' data-en='"Starting from the normal anatomy of [STRUCTURE], explain the anatomical basis of [PATHOLOGY]. What anatomical variants can complicate surgical management?"'>"Pornind de la anatomia normal&#x103; a [STRUCTURA], explic&#x103;-mi bazele anatomice ale [PATOLOGIA]. Ce variante anatomice pot complica managementul chirurgical?"</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: ANATOMY -->
+  <div class="tab-content" id="tab-anatomy">
+    <div class="section-card">
+      <h2 style="color:#81c784" data-ro="&#x1F9B4; Resurse de Anatomie Vizual&#x103;" data-en="&#x1F9B4; Visual Anatomy Resources">&#x1F9B4; Resurse de Anatomie Vizual&#x103;</h2>
+
+      <a class="tool-item" href="https://medvba.com" target="_blank" style="border:1px solid rgba(100,181,246,0.25);background:rgba(100,181,246,0.05)">
+        <div class="tool-icon">&#x1FA7A;</div>
+        <div class="tool-info">
+          <div class="tool-name">MEDVBA</div>
+          <div class="tool-desc" data-ro="Quiz-uri interactive de anatomie pentru studen&#x21B;i &#x219;i profesioni&#x219;ti. Testeaz&#x103;-&#x21B;i cuno&#x219;tin&#x21B;ele pe regiuni, sisteme &#x219;i variante anatomice." data-en="Interactive anatomy quizzes for students and professionals. Test your knowledge on regions, systems and anatomical variants.">Quiz-uri interactive de anatomie pentru studen&#x21B;i &#x219;i profesioni&#x219;ti. Testeaz&#x103;-&#x21B;i cuno&#x219;tin&#x21B;ele pe regiuni, sisteme &#x219;i variante anatomice.</div>
+          <span class="tool-badge" style="background:rgba(129,199,132,0.2);color:#81c784" data-ro="GRATUIT &#x2022; Quiz Anatomie" data-en="FREE &#x2022; Anatomy Quiz">GRATUIT &#x2022; Quiz Anatomie</span>
+        </div>
+      </a>
+
+      <a class="tool-item" href="https://www.3d4medical.com" target="_blank">
+        <div class="tool-icon">&#x1FAC0;</div>
+        <div class="tool-info">
+          <div class="tool-name">Complete Anatomy</div>
+          <div class="tool-desc" data-ro="Atlas 3D interactiv &#x2014; disec&#x21B;ie virtual&#x103;, straturi, vasculariza&#x21B;ie, inerva&#x21B;ie." data-en="Interactive 3D atlas &#x2014; virtual dissection, layers, vascularization, innervation.">Atlas 3D interactiv &#x2014; disec&#x21B;ie virtual&#x103;, straturi, vasculariza&#x21B;ie, inerva&#x21B;ie.</div>
+          <span class="tool-badge">FREEMIUM &#x2022; iOS/Android/Web</span>
+        </div>
+      </a>
+
+      <a class="tool-item" href="https://radiopaedia.org" target="_blank">
+        <div class="tool-icon">&#x1F4E1;</div>
+        <div class="tool-info">
+          <div class="tool-name">Radiopaedia</div>
+          <div class="tool-desc" data-ro="Cazuri radiologice reale (CT, MRI, Rx) cu explica&#x21B;ii. Peste 55.000 cazuri." data-en="Real radiology cases (CT, MRI, X-ray) with explanations. Over 55,000 cases.">Cazuri radiologice reale (CT, MRI, Rx) cu explica&#x21B;ii. Peste 55.000 cazuri.</div>
+          <span class="tool-badge" data-ro="GRATUIT &#x2022; Imagistic&#x103;" data-en="FREE &#x2022; Imaging">GRATUIT &#x2022; Imagistic&#x103;</span>
+        </div>
+      </a>
+
+      <a class="tool-item" href="https://www.kenhub.com" target="_blank">
+        <div class="tool-icon">&#x1F4D6;</div>
+        <div class="tool-info">
+          <div class="tool-name">Kenhub</div>
+          <div class="tool-desc" data-ro="Anatomie cu diagrame, quiz-uri, &#x219;i video-uri explicative." data-en="Anatomy with diagrams, quizzes, and explanatory videos.">Anatomie cu diagrame, quiz-uri, &#x219;i video-uri explicative.</div>
+          <span class="tool-badge" data-ro="FREEMIUM &#x2022; Studen&#x21B;i" data-en="FREEMIUM &#x2022; Students">FREEMIUM &#x2022; Studen&#x21B;i</span>
+        </div>
+      </a>
+
+      <a class="tool-item" href="https://www.imaios.com/en/e-anatomy" target="_blank">
+        <div class="tool-icon">&#x1F5BC;&#xFE0F;</div>
+        <div class="tool-info">
+          <div class="tool-name">IMAIOS e-Anatomy</div>
+          <div class="tool-desc" data-ro="Atlas anatomic pe CT/MRI cu etichete interactive." data-en="Anatomical atlas on CT/MRI with interactive labels.">Atlas anatomic pe CT/MRI cu etichete interactive.</div>
+          <span class="tool-badge">FREEMIUM &#x2022; CT/MRI anatomy</span>
+        </div>
+      </a>
+
+      <a class="tool-item" href="https://www.visiblebody.com" target="_blank">
+        <div class="tool-icon">&#x1F9EC;</div>
+        <div class="tool-info">
+          <div class="tool-name">Visible Body</div>
+          <div class="tool-desc" data-ro="Atlas 3D interactiv cu anima&#x21B;ii de fiziologie &#x219;i patologie." data-en="Interactive 3D atlas with physiology and pathology animations.">Atlas 3D interactiv cu anima&#x21B;ii de fiziologie &#x219;i patologie.</div>
+          <span class="tool-badge">FREEMIUM &#x2022; 3D Atlas</span>
+        </div>
+      </a>
+
+      <a class="tool-item" href="https://www.anatomylearning.com" target="_blank">
+        <div class="tool-icon">&#x1F393;</div>
+        <div class="tool-info">
+          <div class="tool-name">AnatomyLearning</div>
+          <div class="tool-desc" data-ro="Atlas 3D gratuit, complet, cu quiz-uri integrate." data-en="Free, complete 3D atlas with integrated quizzes.">Atlas 3D gratuit, complet, cu quiz-uri integrate.</div>
+          <span class="tool-badge" data-ro="GRATUIT &#x2022; Open source" data-en="FREE &#x2022; Open source">GRATUIT &#x2022; Open source</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="section-card">
+      <h2 style="color:#ffb74d" data-ro="&#x1F5C2;&#xFE0F; Baze de date utile" data-en="&#x1F5C2;&#xFE0F; Useful databases">&#x1F5C2;&#xFE0F; Baze de date utile</h2>
+      <a class="tool-item" href="https://www.ncbi.nlm.nih.gov/books/NBK554382/" target="_blank">
+        <div class="tool-icon">&#x1F4DA;</div>
+        <div class="tool-info">
+          <div class="tool-name">StatPearls (NCBI)</div>
+          <div class="tool-desc" data-ro="Articole de review gratuite pe orice tem&#x103; medical&#x103;. Actualizate constant." data-en="Free review articles on any medical topic. Constantly updated.">Articole de review gratuite pe orice tem&#x103; medical&#x103;. Actualizate constant.</div>
+          <span class="tool-badge" data-ro="GRATUIT &#x2022; Review-uri" data-en="FREE &#x2022; Reviews">GRATUIT &#x2022; Review-uri</span>
+        </div>
+      </a>
+      <a class="tool-item" href="https://www.cochranelibrary.com" target="_blank">
+        <div class="tool-icon">&#x1F52C;</div>
+        <div class="tool-info">
+          <div class="tool-name">Cochrane Library</div>
+          <div class="tool-desc" data-ro="Standardul de aur pentru review-uri sistematice &#x219;i meta-analize." data-en="The gold standard for systematic reviews and meta-analyses.">Standardul de aur pentru review-uri sistematice &#x219;i meta-analize.</div>
+          <span class="tool-badge" data-ro="GRATUIT (abstracte) &#x2022; Evidence-based" data-en="FREE (abstracts) &#x2022; Evidence-based">GRATUIT (abstracte) &#x2022; Evidence-based</span>
+        </div>
+      </a>
+      <a class="tool-item" href="https://scholar.google.com/scholar_alerts" target="_blank">
+        <div class="tool-icon">&#x1F514;</div>
+        <div class="tool-info">
+          <div class="tool-name">Google Scholar Alerts</div>
+          <div class="tool-desc" data-ro="Seteaz&#x103; alerte pe cuvinte cheie &#x2192; prime&#x219;ti email automat c&#x00E2;nd apar articole noi." data-en="Set keyword alerts &#x2192; get automatic emails when new articles appear.">Seteaz&#x103; alerte pe cuvinte cheie &#x2192; prime&#x219;ti email automat c&#x00E2;nd apar articole noi.</div>
+          <span class="tool-badge" data-ro="GRATUIT &#x2022; Alerte automate" data-en="FREE &#x2022; Auto alerts">GRATUIT &#x2022; Alerte automate</span>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- TAB: GUIDE -->
+  <div class="tab-content" id="tab-guide">
+    <div class="section-card">
+      <h2 style="color:#ffb74d" data-ro="&#x1F4CB; Ghid: De la &#x00EE;ntrebare la articol &#x00EE;n 6 pa&#x219;i" data-en="&#x1F4CB; Guide: From question to article in 6 steps">&#x1F4CB; Ghid: De la &#x00EE;ntrebare la articol &#x00EE;n 6 pa&#x219;i</h2>
+
+      <div class="step"><div class="step-num">1</div><div class="step-content">
+        <div class="step-title" data-ro="Formuleaz&#x103; &#x00EE;ntrebarea clinic" data-en="Formulate the clinical question">Formuleaz&#x103; &#x00EE;ntrebarea clinic</div>
+        <div class="step-text" data-ro='Nu c&#x103;uta generic "heart disease". Formuleaz&#x103; precis: "Care sunt variantele anatomice ale arterelor coronare cu relevan&#x21B;&#x103; pentru bypass?"' data-en='Don&#x2019;t search generic "heart disease". Be precise: "What are the anatomical variants of coronary arteries relevant for bypass?"'>Nu c&#x103;uta generic "heart disease". Formuleaz&#x103; precis: "Care sunt variantele anatomice ale arterelor coronare cu relevan&#x21B;&#x103; pentru bypass?"</div>
+      </div></div>
+
+      <div class="step"><div class="step-num">2</div><div class="step-content">
+        <div class="step-title" data-ro="Caut&#x103; pe PubMed cu MeSH terms" data-en="Search PubMed with MeSH terms">Caut&#x103; pe PubMed cu MeSH terms</div>
+        <div class="step-text" data-ro="Folose&#x219;te termeni MeSH + Boolean operators (AND, OR, NOT). Cere AI-ului s&#x103;-&#x21B;i construiasc&#x103; search string-ul." data-en="Use MeSH terms + Boolean operators (AND, OR, NOT). Ask AI to build your search string.">Folose&#x219;te termeni MeSH + Boolean operators (AND, OR, NOT). Cere AI-ului s&#x103;-&#x21B;i construiasc&#x103; search string-ul.</div>
+      </div></div>
+
+      <div class="step"><div class="step-num">3</div><div class="step-content">
+        <div class="step-title" data-ro="Filtreaz&#x103; inteligent" data-en="Filter intelligently">Filtreaz&#x103; inteligent</div>
+        <div class="step-text" data-ro="Pe PubMed: Free Full Text + Review + ultimii 5 ani. Pe Semantic Scholar: sorteaz&#x103; dup&#x103; &#x201C;Highly Influential Citations&#x201D;." data-en="On PubMed: Free Full Text + Review + last 5 years. On Semantic Scholar: sort by &#x201C;Highly Influential Citations&#x201D;.">Pe PubMed: Free Full Text + Review + ultimii 5 ani. Pe Semantic Scholar: sorteaz&#x103; dup&#x103; "Highly Influential Citations".</div>
+      </div></div>
+
+      <div class="step"><div class="step-num">4</div><div class="step-content">
+        <div class="step-title" data-ro="Cere AI-ului s&#x103; rezume" data-en="Ask AI to summarize">Cere AI-ului s&#x103; rezume</div>
+        <div class="step-text" data-ro="Copiaz&#x103; abstractul &#x219;i cere-i lui Claude sau ChatGPT s&#x103;-l rezume." data-en="Copy the abstract and ask Claude or ChatGPT to summarize it.">Copiaz&#x103; abstractul &#x219;i cere-i lui Claude sau ChatGPT s&#x103;-l rezume.</div>
+      </div></div>
+
+      <div class="step"><div class="step-num">5</div><div class="step-content">
+        <div class="step-title" data-ro="Verific&#x103; pe scite.ai" data-en="Verify on scite.ai">Verific&#x103; pe scite.ai</div>
+        <div class="step-text" data-ro="Caut&#x103; articolul pe scite.ai &#x219;i vezi dac&#x103; a fost sus&#x21B;inut sau contrazis. Nu cita un articol contrazis." data-en="Search the article on scite.ai and check if it was supported or contradicted. Don't cite a contradicted article.">Caut&#x103; articolul pe scite.ai &#x219;i vezi dac&#x103; a fost sus&#x21B;inut sau contrazis. Nu cita un articol contrazis.</div>
+      </div></div>
+
+      <div class="step"><div class="step-num">6</div><div class="step-content">
+        <div class="step-title" data-ro="Scrie cu propriile cuvinte" data-en="Write in your own words">Scrie cu propriile cuvinte</div>
+        <div class="step-text" data-ro="AI-ul te ajut&#x103; s&#x103; cau&#x21B;i, s&#x103; &#x00EE;n&#x21B;elegi, &#x219;i s&#x103; structurezi. Dar TU cite&#x219;ti articolul complet, TU interpretezi, TU scrii." data-en="AI helps you search, understand, and structure. But YOU read the full article, YOU interpret, YOU write.">AI-ul te ajut&#x103; s&#x103; cau&#x21B;i, s&#x103; &#x00EE;n&#x21B;elegi, &#x219;i s&#x103; structurezi. Dar TU cite&#x219;ti articolul complet, TU interpretezi, TU scrii.</div>
+      </div></div>
+    </div>
+
+    <div class="section-card">
+      <h2 style="color:#4dd0e1" data-ro="&#x1F504; Workflow complet: 8 pa&#x219;i" data-en="&#x1F504; Complete workflow: 8 steps">&#x1F504; Workflow complet: 8 pa&#x219;i</h2>
+      <div id="workflowContent" style="font-size:13px;color:rgba(255,255,255,0.6);line-height:2.2">
+        <div>1&#xFE0F;&#x20E3; <strong data-ro="&#x00CE;ntrebare clinic&#x103;:" data-en="Clinical question:">&#x00CE;ntrebare clinic&#x103;:</strong> <span data-ro="Formuleaz&#x103; precis ce vrei s&#x103; afli" data-en="Formulate precisely what you want to find out">Formuleaz&#x103; precis ce vrei s&#x103; afli</span></div>
+        <div>2&#xFE0F;&#x20E3; <strong>Consensus:</strong> <span data-ro="R&#x103;spuns rapid &#x2014; ce spune literatura?" data-en="Quick answer &#x2014; what does the literature say?">R&#x103;spuns rapid &#x2014; ce spune literatura?</span></div>
+        <div>3&#xFE0F;&#x20E3; <strong>PubMed:</strong> <span data-ro="C&#x103;utare cu MeSH terms + filtre" data-en="Search with MeSH terms + filters">C&#x103;utare cu MeSH terms + filtre</span></div>
+        <div>4&#xFE0F;&#x20E3; <strong data-ro="Selecteaz&#x103;:" data-en="Select:">Selecteaz&#x103;:</strong> <span data-ro="Alege 3-5 articole relevante" data-en="Choose 3-5 relevant articles">Alege 3-5 articole relevante</span></div>
+        <div>5&#xFE0F;&#x20E3; <strong data-ro="AI rezumat:" data-en="AI summary:">AI rezumat:</strong> <span data-ro="Lipe&#x219;te abstractele &#x00EE;n Claude" data-en="Paste abstracts into Claude">Lipe&#x219;te abstractele &#x00EE;n Claude</span></div>
+        <div>6&#xFE0F;&#x20E3; <strong>scite.ai:</strong> <span data-ro="Verific&#x103; dac&#x103; articolele sunt sus&#x21B;inute" data-en="Check if articles are supported">Verific&#x103; dac&#x103; articolele sunt sus&#x21B;inute</span></div>
+        <div>7&#xFE0F;&#x20E3; <strong data-ro="Vizualizeaz&#x103;:" data-en="Visualize:">Vizualizeaz&#x103;:</strong> Radiopaedia / Complete Anatomy</div>
+        <div>8&#xFE0F;&#x20E3; <strong data-ro="Scrie:" data-en="Write:">Scrie:</strong> <span data-ro="Cu propriile cuvinte &#x2014; AI asist&#x103;, tu e&#x219;ti autorul" data-en="In your own words &#x2014; AI assists, you are the author">Cu propriile cuvinte &#x2014; AI asist&#x103;, tu e&#x219;ti autorul</span></div>
+      </div>
+    </div>
+
+    <div class="section-card" style="border-color:rgba(255,152,0,0.2)">
+      <h2 style="color:#ffb74d" data-ro="&#x2696;&#xFE0F; Etica utiliz&#x103;rii AI &#x00EE;n cercetare" data-en="&#x2696;&#xFE0F; Ethics of using AI in research">&#x2696;&#xFE0F; Etica utiliz&#x103;rii AI &#x00EE;n cercetare</h2>
+      <div style="font-size:13px;color:rgba(255,255,255,0.5);line-height:1.8">
+        <p style="margin-bottom:8px" data-ro="&#x2705; Folose&#x219;te AI pentru a c&#x103;uta, rezuma, traduce, &#x219;i genera idei" data-en="&#x2705; Use AI to search, summarize, translate, and generate ideas">&#x2705; Folose&#x219;te AI pentru a c&#x103;uta, rezuma, traduce, &#x219;i genera idei</p>
+        <p style="margin-bottom:8px" data-ro="&#x2705; Citeaz&#x103; sursele originale, nu AI-ul" data-en="&#x2705; Cite original sources, not the AI">&#x2705; Citeaz&#x103; sursele originale, nu AI-ul</p>
+        <p style="margin-bottom:8px" data-ro="&#x2705; Declar&#x103; utilizarea AI dac&#x103; revista o cere" data-en="&#x2705; Declare AI usage if the journal requires it">&#x2705; Declar&#x103; utilizarea AI dac&#x103; revista o cere</p>
+        <p style="margin-bottom:8px" data-ro="&#x2705; Verific&#x103; FIECARE referin&#x21B;&#x103; pe PubMed" data-en="&#x2705; Verify EVERY reference on PubMed">&#x2705; Verific&#x103; FIECARE referin&#x21B;&#x103; pe PubMed</p>
+        <p style="margin-bottom:8px" data-ro="&#x274C; Copy-paste din AI &#x00EE;ntr-o lucrare f&#x103;r&#x103; verificare" data-en="&#x274C; Copy-paste from AI into a paper without verification">&#x274C; Copy-paste din AI &#x00EE;ntr-o lucrare f&#x103;r&#x103; verificare</p>
+        <p style="margin-bottom:8px" data-ro="&#x274C; Cita referin&#x21B;e sugerate de AI f&#x103;r&#x103; s&#x103; verifici c&#x103; exist&#x103;" data-en="&#x274C; Cite AI-suggested references without verifying they exist">&#x274C; Cita referin&#x21B;e sugerate de AI f&#x103;r&#x103; s&#x103; verifici c&#x103; exist&#x103;</p>
+        <p data-ro="&#x274C; Folosi AI ca substitut pentru g&#x00E2;ndirea critic&#x103; proprie" data-en="&#x274C; Use AI as a substitute for your own critical thinking">&#x274C; Folosi AI ca substitut pentru g&#x00E2;ndirea critic&#x103; proprie</p>
+      </div>
+      <div class="warning">
+        <p data-ro="&#x26A0;&#xFE0F; <strong>Regula de aur:</strong> AI-ul este un asistent, nu un autor. El te ajut&#x103; s&#x103; cau&#x21B;i, s&#x103; &#x00EE;n&#x21B;elegi &#x219;i s&#x103; structurezi. Tu cite&#x219;ti, verifici &#x219;i g&#x00E2;nde&#x219;ti critic. &#x00CE;ntotdeauna." data-en="&#x26A0;&#xFE0F; <strong>Golden rule:</strong> AI is an assistant, not an author. It helps you search, understand, and structure. You read, verify, and think critically. Always.">&#x26A0;&#xFE0F; <strong>Regula de aur:</strong> AI-ul este un asistent, nu un autor. El te ajut&#x103; s&#x103; cau&#x21B;i, s&#x103; &#x00EE;n&#x21B;elegi &#x219;i s&#x103; structurezi. Tu cite&#x219;ti, verifici &#x219;i g&#x00E2;nde&#x219;ti critic. &#x00CE;ntotdeauna.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Medical Research Toolkit v2.0</p>
+    <p data-ro="Creat de <strong>Dr. Cosmin Gabriel Popa</strong>" data-en="Created by <strong>Dr. Cosmin Gabriel Popa</strong>">Creat de <strong>Dr. Cosmin Gabriel Popa</strong></p>
+    <p data-ro="Departamentul de Anatomie &#x219;i Embriologie" data-en="Department of Anatomy and Embryology">Departamentul de Anatomie &#x219;i Embriologie</p>
+    <p style="margin-top:8px"><a href="https://cosminpopa.ro">cosminpopa.ro</a></p>
+    <p style="margin-top:8px" data-ro="&#x00A9; 2026 &#x2014; Distribuit gratuit pentru uz educa&#x21B;ional" data-en="&#x00A9; 2026 &#x2014; Distributed free for educational use">&#x00A9; 2026 &#x2014; Distribuit gratuit pentru uz educa&#x21B;ional</p>
+  </div>
+
+</div>
+
+<script>
+let currentLang = 'ro';
+
+function toggleLang() {
+  currentLang = currentLang === 'ro' ? 'en' : 'ro';
+  document.getElementById('langBtn').textContent = currentLang === 'ro' ? 'EN' : 'RO';
+  document.getElementById('subtitle').textContent = currentLang === 'ro'
+    ? 'Caut\u0103. \u00CEn\u021Belege. Public\u0103. \u2014 by Dr. Cosmin G. Popa'
+    : 'Search. Understand. Publish. \u2014 by Dr. Cosmin G. Popa';
+  document.getElementById('searchInput').placeholder = currentLang === 'ro'
+    ? 'Scrie orice tem\u0103 medical\u0103...'
+    : 'Type any medical topic...';
+  document.querySelectorAll('[data-' + currentLang + ']').forEach(el => {
+    const val = el.getAttribute('data-' + currentLang);
+    if (val) {
+      if (el.tagName === 'INPUT') el.placeholder = val;
+      else el.innerHTML = val;
+    }
+  });
+}
+
+function getQuery() { return encodeURIComponent(document.getElementById('searchInput').value); }
+function setSearch(val) { document.getElementById('searchInput').value = val; document.getElementById('searchInput').focus(); }
+function addFilter(filter) { document.getElementById('searchInput').value += filter; }
+
+function searchEngine(engine) {
+  const q = getQuery();
+  const urls = {
+    pubmed: 'https://pubmed.ncbi.nlm.nih.gov/?term=' + q,
+    scholar: 'https://scholar.google.com/scholar?q=' + q,
+    semantic: 'https://www.semanticscholar.org/search?q=' + q,
+    consensus: 'https://consensus.app/search/?q=' + q
+  };
+  window.open(urls[engine], '_blank');
+}
+
+function showTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + tabId).classList.add('active');
+  event.target.classList.add('active');
+}
+
+document.querySelectorAll('.prompt-box').forEach(box => {
+  box.addEventListener('click', function() {
+    const hint = this.querySelector('.copy-hint');
+    const span = this.querySelector('span:not(.copy-hint)');
+    const text = span ? span.textContent.trim() : this.textContent.replace(hint?.textContent || '', '').trim();
+    navigator.clipboard.writeText(text).then(() => {
+      if (hint) {
+        const orig = hint.textContent;
+        hint.textContent = currentLang === 'ro' ? '\u2713 copiat!' : '\u2713 copied!';
+        hint.style.color = '#81c784';
+        setTimeout(() => { hint.textContent = orig; hint.style.color = ''; }, 1500);
+      }
+    });
+  });
+});
+</script>
+
+</body>
+</html>
