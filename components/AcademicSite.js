@@ -300,7 +300,7 @@ const t = {
 
 function NavLink({ href, children, onClick }) {
   return (
-    <a href={href} onClick={onClick} style={{ color: "var(--fg-sec)", textDecoration: "none", fontSize: "0.85rem", letterSpacing: "0.04em", textTransform: "uppercase", fontFamily: "var(--fm)", transition: "color 0.2s" }}
+    <a href={href} onClick={onClick} style={{ color: "var(--fg-sec)", textDecoration: "none", fontSize: "0.75rem", letterSpacing: "0.02em", textTransform: "uppercase", fontFamily: "var(--fm)", transition: "color 0.2s" }}
       onMouseEnter={(e) => (e.target.style.color = "var(--acc)")} onMouseLeave={(e) => (e.target.style.color = "var(--fg-sec)")}>
       {children}
     </a>
@@ -352,7 +352,7 @@ export function AcademicSite() {
         <div style={{ maxWidth: 720, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <a href="#top" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
             style={{ ...S.head, fontWeight: 700, fontSize: "1.1rem", color: "var(--fg)", textDecoration: "none" }}>C-G Popa</a>
-          <div className="dsk" style={{ display: "flex", gap: "1.25rem", alignItems: "center" }}>
+          <div className="dsk" style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
             {Object.entries(c.nav).map(([k, v]) => <NavLink key={k} href={"#" + k} onClick={(e) => { e.preventDefault(); go(k); }}>{v}</NavLink>)}
             <button onClick={toggle} style={{ ...S.mono, fontSize: "0.8rem", padding: "0.2rem 0.6rem", border: "1px solid var(--bdr)", borderRadius: 3, background: "transparent", color: "var(--fg-sec)", cursor: "pointer" }}>
               {lang === "ro" ? "EN" : "RO"}
