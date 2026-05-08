@@ -1,5 +1,6 @@
 'use client';
 import { useState } from "react";
+import Link from "next/link";
 
 const t = {
   ro: {
@@ -139,6 +140,19 @@ const t = {
             "Personal, am o a doua forma\u021bie \u00een istorie \u0219i arheologie. Asta m-a dus spre bioarheologie \u2014 studiul resturilor osteologice umane din contexte arheologice folosind metode anatomice moderne. E un domeniu fascinant unde medicina se \u00eent\u00e2lne\u0219te cu istoria.",
             "Iar educa\u021bia digital\u0103 e poate cea mai urgent\u0103 intersec\u021bie. Am construit NASCORA pentru c\u0103 informa\u021bia despre teratogeni trebuia s\u0103 ajung\u0103 la oricine. Am construit Medical Research Toolkit pentru c\u0103 studen\u021bii mei aveau nevoie de un punct de plecare pentru cercetare.",
             "Dac\u0103 e\u0219ti student \u0219i crezi c\u0103 anatomia e o materie de trecut \u00een anul I \u2014 g\u00e2nde\u0219te-te din nou. E o platform\u0103 de lansare. Depinde doar de tine c\u00e2t de departe vrei s\u0103 ajungi cu ea.",
+          ],
+        },
+        {
+          title: "Cum \u00eenve\u021bi anatomia eficient \u00een 2026 \u2014 un ghid practic pentru studen\u021bi",
+          date: "8 mai 2026", tag: "Educa\u021bie",
+          summary: "Un plan simplu \u00een 5 pa\u0219i pentru a transforma anatomia din materie de memorat \u00een cunoa\u0219tere clinic\u0103 util\u0103.",
+          content: [
+            "Mul\u021bi studen\u021bi trateaz\u0103 anatomia ca pe o list\u0103 lung\u0103 de termeni. Problema nu e lipsa de munc\u0103, ci strategia. C\u00e2nd \u00eenve\u021bi doar pentru examen, ui\u021bi rapid. C\u00e2nd \u00eenve\u021bi pentru context clinic, informa\u021bia r\u0103m\u00e2ne.",
+            "Primul pas este organizarea pe regiuni \u0219i obiective clare: ce trebuie s\u0103 \u0219tii, ce trebuie s\u0103 recuno\u0219ti pe imagine \u0219i ce trebuie s\u0103 explici clinic. F\u0103r\u0103 acest filtru, timpul se pierde \u00een detalii care nu se fixeaz\u0103.",
+            "Al doilea pas este repeti\u021bia activ\u0103: deseneaz\u0103 simplificat, explic\u0103 cu voce tare \u0219i testeaz\u0103-te zilnic 15-20 de minute. Anatomia se \u00eenva\u021b\u0103 mai bine prin recuperarea informa\u021biei dec\u00e2t prin recitire pasiv\u0103.",
+            "Al treilea pas este leg\u0103tura cu imagistica. Compar\u0103 structurile din atlas cu CT, MRI sau CBCT ori de c\u00e2te ori po\u021bi. \u00cen acel moment, anatomia trece din carte \u00een practic\u0103, iar orientarea spa\u021bial\u0103 devine mult mai clar\u0103.",
+            "Al patrulea pas este munca \u00een echip\u0103: mini-sesiuni cu colegii, \u00eentreb\u0103ri scurte \u0219i feedback imediat. C\u00e2nd po\u021bi explica simplu unui coleg un traseu anatomic, \u00eenseamn\u0103 c\u0103 ai \u00een\u021beles cu adev\u0103rat.",
+            "Anatomia nu e o prob\u0103 de memorie, ci baza g\u00e2ndirii clinice. Dac\u0103 \u00eenve\u021bi cu metod\u0103, nu doar c\u0103 treci examenul, dar \u00ee\u021bi construie\u0219ti un avantaj real pentru to\u021bi anii care urmeaz\u0103.",
           ],
         },
       ],
@@ -288,6 +302,19 @@ const t = {
             "If you are a student and you think anatomy is just a subject to pass in year one \u2014 think again. It is a launchpad. How far you go with it depends entirely on you.",
           ],
         },
+        {
+          title: "How to learn anatomy effectively in 2026 \u2014 a practical student guide",
+          date: "May 8, 2026", tag: "Education",
+          summary: "A simple 5-step plan to turn anatomy from memorized content into clinically useful knowledge.",
+          content: [
+            "Many students treat anatomy as a long list of terms. The issue is usually not effort, but strategy. If you study only for the exam, you forget quickly. If you study for clinical context, the knowledge stays.",
+            "Step one is to organize by regions and clear goals: what you must know, what you must identify on imaging, and what you must explain clinically. Without this filter, time is lost on details that do not stick.",
+            "Step two is active recall: draw simplified maps, explain structures out loud, and self-test daily for 15 to 20 minutes. Anatomy is retained better through retrieval than passive rereading.",
+            "Step three is imaging integration. Match atlas structures with CT, MRI, or CBCT whenever possible. That is the moment anatomy moves from page to practice, and spatial orientation becomes much clearer.",
+            "Step four is collaborative learning: short sessions with peers, quick questions, and immediate feedback. If you can explain an anatomical pathway clearly to a colleague, you have truly understood it.",
+            "Anatomy is not a memory contest; it is the foundation of clinical thinking. If you learn with method, you not only pass the exam, you build a real advantage for every year that follows.",
+          ],
+        },
       ],
     },
     contact: {
@@ -322,10 +349,23 @@ function Div() {
 export function AcademicSite() {
   const [lang, setLang] = useState("ro");
   const [menuOpen, setMenuOpen] = useState(false);
-  const [expandedPost, setExpandedPost] = useState(null);
   const c = t[lang];
   const toggle = () => setLang(lang === "ro" ? "en" : "ro");
   const go = (id) => { setMenuOpen(false); document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); };
+  const blogSlugs = {
+    ro: [
+      "de-ce-educatia-medicala-trebuie-sa-evolueze",
+      "medicina-ca-vocatie",
+      "anatomia-interdisciplinara",
+      "cum-inveti-anatomia-eficient-2026",
+    ],
+    en: [
+      "why-medical-education-must-evolve",
+      "medicine-as-a-vocation",
+      "anatomy-interdisciplinary-opportunities",
+      "how-to-learn-anatomy-effectively-2026",
+    ],
+  };
 
   const S = {
     mono: { fontFamily: "var(--fm)" },
@@ -548,24 +588,17 @@ export function AcademicSite() {
             <p style={{ ...S.mono, fontSize: "0.8rem", color: "var(--fg-ter)", marginBottom: "0.75rem" }}>{post.date}</p>
             <p style={{ fontSize: "0.95rem", color: "var(--fg-sec)", lineHeight: 1.7 }}>{post.summary}</p>
 
-            {expandedPost === i ? (
-              <div style={{ marginTop: "1.25rem", paddingTop: "1rem", borderTop: "1px solid var(--bdr)" }}>
-                {post.content.map((par, j) => (
-                  <p key={j} style={{ fontSize: "0.95rem", color: "var(--fg-sec)", lineHeight: 1.8, marginBottom: "1rem" }}>{par}</p>
-                ))}
-                <button onClick={() => setExpandedPost(null)}
-                  style={{ ...S.mono, fontSize: "0.8rem", color: "var(--acc)", background: "none", border: "none", cursor: "pointer", padding: 0 }}>
-                  {lang === "ro" ? "\u2191 \u00cenchide" : "\u2191 Collapse"}
-                </button>
-              </div>
-            ) : (
-              <button onClick={() => setExpandedPost(i)}
-                style={{ ...S.mono, fontSize: "0.8rem", color: "var(--acc)", background: "none", border: "none", cursor: "pointer", padding: 0, marginTop: "0.75rem", display: "block" }}>
-                {lang === "ro" ? "Cite\u0219te \u2192" : "Read more \u2192"}
-              </button>
-            )}
+            <Link
+              href={`/blog/${lang}/${blogSlugs[lang][i]}`}
+              style={{ ...S.mono, fontSize: "0.8rem", color: "var(--acc)", marginTop: "0.75rem", display: "inline-block" }}
+            >
+              {lang === "ro" ? "Citește articolul →" : "Read article →"}
+            </Link>
           </article>
         ))}
+        <Link href={`/blog/${lang}`} style={{ ...S.mono, fontSize: "0.85rem", color: "var(--acc)", borderBottom: "1px dashed var(--acc)", display: "inline-block", marginTop: "0.5rem" }}>
+          {lang === "ro" ? "Vezi toate articolele →" : "Browse all articles →"}
+        </Link>
       </Sec>
 
       <Div />
