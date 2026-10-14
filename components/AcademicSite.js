@@ -385,13 +385,28 @@ export function AcademicSite() {
         *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}::selection{background:var(--accl);color:var(--acc)}
         @media(max-width:640px){.dsk{display:none!important}.mbtn{display:flex!important}.hero-title{font-size:1.8rem!important}.section-pad{padding:2rem 1rem!important}}
         @media(min-width:641px){.mbtn{display:none!important}.mpnl{display:none!important}}
+        .xlnk{display:inline-flex;align-items:center;gap:.3rem;font-family:var(--fm);font-size:.72rem;letter-spacing:.02em;color:var(--acc);text-decoration:none;border:1px solid var(--acc);border-radius:3px;padding:.18rem .5rem;white-space:nowrap;transition:background .2s,color .2s}
+        .xlnk:hover{background:var(--acc);color:#fff}
+        .lshort{display:none}
+        @media(max-width:1020px){.lfull{display:none}.lshort{display:inline}}
+        @media(max-width:380px){.xlnk{padding:.15rem .35rem;font-size:.68rem}}
       `}</style>
 
       {/* Navbar */}
       <nav style={{ position: "sticky", top: 0, zIndex: 100, backgroundColor: "var(--bg)", borderBottom: "1px solid var(--bdr)", padding: "0.75rem 1.5rem" }}>
-        <div style={{ maxWidth: 720, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <div style={{ maxWidth: 1040, margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", gap: "0.75rem" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", minWidth: 0 }}>
           <a href="#top" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: "smooth" }); }}
-            style={{ ...S.head, fontWeight: 700, fontSize: "1.1rem", color: "var(--fg)", textDecoration: "none" }}>C-G Popa</a>
+            style={{ ...S.head, fontWeight: 700, fontSize: "1.1rem", color: "var(--fg)", textDecoration: "none", whiteSpace: "nowrap" }}>C-G Popa</a>
+            <a className="xlnk" href="https://anatomie.cosminpopa.ro/en/" target="_blank" rel="noopener"
+              title={lang === "ro" ? "Anatomia lui Gray (ediția 1918)" : "Gray's Anatomy (1918 edition)"}>
+              <span className="lfull">Gray's Anatomy 1918</span><span className="lshort">Gray 1918</span> <span aria-hidden="true">↗</span>
+            </a>
+            <a className="xlnk" href="https://terminologiaanatomica.ro/" target="_blank" rel="noopener"
+              title={lang === "ro" ? "Terminologia Anatomica în limba română" : "Terminologia Anatomica in Romanian"}>
+              <span className="lfull">Terminologia Anatomica</span><span className="lshort">TA · RO</span> <span aria-hidden="true">↗</span>
+            </a>
+          </div>
           <div className="dsk" style={{ display: "flex", gap: "1rem", alignItems: "center" }}>
             {Object.entries(c.nav).map(([k, v]) => <NavLink key={k} href={"#" + k} onClick={(e) => { e.preventDefault(); go(k); }}>{v}</NavLink>)}
             <button onClick={toggle} style={{ ...S.mono, fontSize: "0.8rem", padding: "0.2rem 0.6rem", border: "1px solid var(--bdr)", borderRadius: 3, background: "transparent", color: "var(--fg-sec)", cursor: "pointer" }}>
@@ -405,7 +420,7 @@ export function AcademicSite() {
           </button>
         </div>
         {menuOpen && (
-          <div className="mpnl" style={{ maxWidth: 720, margin: "0.5rem auto 0", display: "flex", flexDirection: "column", gap: "0.75rem", padding: "0.75rem 0", borderTop: "1px solid var(--bdr)" }}>
+          <div className="mpnl" style={{ maxWidth: 1040, margin: "0.5rem auto 0", display: "flex", flexDirection: "column", gap: "0.75rem", padding: "0.75rem 0", borderTop: "1px solid var(--bdr)" }}>
             {Object.entries(c.nav).map(([k, v]) => <NavLink key={k} href={"#" + k} onClick={(e) => { e.preventDefault(); go(k); }}>{v}</NavLink>)}
             <button onClick={() => { toggle(); setMenuOpen(false); }} style={{ ...S.mono, fontSize: "0.8rem", padding: "0.2rem 0.6rem", border: "1px solid var(--bdr)", borderRadius: 3, background: "transparent", color: "var(--fg-sec)", cursor: "pointer", alignSelf: "flex-start" }}>
               {lang === "ro" ? "EN" : "RO"}
