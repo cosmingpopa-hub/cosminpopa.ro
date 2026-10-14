@@ -88,6 +88,16 @@ const t = {
       intro: "Construiesc instrumente digitale care fac educa\u021bia medical\u0103 \u0219i informa\u021bia \u0219tiin\u021bific\u0103 mai accesibile.",
       items: [
         {
+          name: "Terminologia Anatomica \u2014 versiunea rom\u00e2n\u0103", url: "https://terminologiaanatomica.ro/", tagline: "Terminologia anatomic\u0103 interna\u021bional\u0103 (TA2) \u00een limba rom\u00e2n\u0103",
+          desc: "To\u021bi cei 7.112 termeni ai Terminologiei Anatomice (FIPAT, 2019) \u00een latin\u0103, englez\u0103 \u0219i rom\u00e2n\u0103, cu num\u0103rul TA2 \u0219i codul TA98, organiza\u021bi pe cele 16 capitole oficiale. Referin\u021b\u0103 pentru predare, traduceri \u0219i publica\u021bii; revizuit\u0103 \u00een cadrul Disciplinei de Anatomie \u0219i Embriologie, UMF Ia\u0219i.",
+          tech: "Next.js \u00b7 Vercel \u00b7 TA2 \u00b7 TA98",
+        },
+        {
+          name: "Anatomia lui Gray (1918)", url: "https://anatomie.cosminpopa.ro/ro/", tagline: "Tratatul clasic, bilingv englez\u0103\u2013rom\u00e2n\u0103",
+          desc: "Edi\u021bia a 20-a a tratatului Anatomy of the Human Body (Henry Gray, 1918), aflat\u0103 \u00een domeniul public: 294 de sec\u021biuni \u0219i 1.239 de figuri, cu traducere \u00een limba rom\u00e2n\u0103 \u00een curs, aliniat\u0103 la Terminologia Anatomica.",
+          tech: "Next.js \u00b7 Vercel \u00b7 Domeniu public",
+        },
+        {
           name: "NASCORA", url: "https://nascora.health", tagline: "Platform\u0103 de preven\u021bie \u00een teratologie",
           desc: "Platform\u0103 bilingv\u0103 (RO/EN) dedicat\u0103 prevenirii malforma\u021biilor congenitale. Include un verificator de risc teratogen cu o baz\u0103 de date de 500+ substan\u021be, bibliotec\u0103 de articole bazate pe eviden\u021be, calculator de sarcin\u0103 \u0219i checklist pre-concep\u021bie.",
           tech: "Next.js 14 \u00b7 Vercel \u00b7 GDPR compliant",
@@ -247,6 +257,16 @@ const t = {
       title: "Digital Projects",
       intro: "I build digital tools that make medical education and scientific information more accessible.",
       items: [
+        {
+          name: "Terminologia Anatomica \u2014 Romanian edition", url: "https://terminologiaanatomica.ro/", tagline: "International anatomical terminology (TA2) in Romanian",
+          desc: "All 7,112 terms of Terminologia Anatomica (FIPAT, 2019) in Latin, English and Romanian, with TA2 numbers and TA98 codes, arranged in the 16 official chapters. A reference for teaching, translation and publishing; reviewed by the Department of Anatomy and Embryology, UMF Ia\u0219i.",
+          tech: "Next.js \u00b7 Vercel \u00b7 TA2 \u00b7 TA98",
+        },
+        {
+          name: "Gray's Anatomy (1918)", url: "https://anatomie.cosminpopa.ro/en/", tagline: "The classic textbook, bilingual English\u2013Romanian",
+          desc: "The 20th edition of Henry Gray's Anatomy of the Human Body (1918), in the public domain: 294 sections and 1,239 figures, with a Romanian translation in progress aligned to Terminologia Anatomica.",
+          tech: "Next.js \u00b7 Vercel \u00b7 Public domain",
+        },
         {
           name: "NASCORA", url: "https://nascora.health", tagline: "Teratology prevention platform",
           desc: "Bilingual platform (RO/EN) dedicated to preventing congenital malformations. Features a teratogen risk checker with a database of 500+ substances, evidence-based article library, pregnancy calculator, and pre-conception checklist.",
